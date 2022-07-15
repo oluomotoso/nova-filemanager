@@ -28,8 +28,11 @@ trait FileFunctions
     {
         $unit = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         $times = floor(log($size, $base));
+        //this is required to fix division by zero error
+        $sizeDiv=pow($base, ($times + $level)));
+        $sizeDiv = $sizeDiv>0?$sizeDiv:1;
 
-        return sprintf('%.'.$precision.'f', $size / pow($base, ($times + $level))).' '.$unit[$times + $level];
+        return sprintf('%.'.$precision.'f', $size / $sizeDiv.' '.$unit[$times + $level];
     }
 
     /**
